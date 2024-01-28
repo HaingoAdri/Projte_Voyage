@@ -8,9 +8,7 @@ package servlet;
 import connexion.DbConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -19,22 +17,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Activite;
-import model.Billet;
-import model.Historique;
-import model.Reservation;
-import model.Voyage;
-import model.VoyageActivite;
+import model.Vues_Employer;
 
 /**
  *
- * @author Adrienne
+ * @author Ndimby Razafinjatovo
  */
-@WebServlet(name = "Reservations", urlPatterns = {"/Reservations"})
-public class Reservations extends HttpServlet {
-    Activite a=new Activite();
-    DbConnection c=new DbConnection();
-    Voyage v = new Voyage();
+@WebServlet(name = "Liste_employer", urlPatterns = {"/Liste_employer"})
+public class Liste_employer extends HttpServlet {
+    DbConnection c = new DbConnection();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,10 +37,11 @@ public class Reservations extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
-        Vector<Voyage> listeVoyage = v.listeVoyage(c.connectToPostgres());
-        request.setAttribute("voyage", listeVoyage);
-        RequestDispatcher dispacth = request.getRequestDispatcher("Reservation.jsp");
-        dispacth.forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        List<Vues_Employer> liste = Vues_Employer.lietEmployer(c.connectToPostgres());
+        request.setAttribute("liste", liste);
+        RequestDispatcher dispact = request.getRequestDispatcher("Liste_employer.jsp");
+        dispact.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,7 +59,7 @@ public class Reservations extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(Reservations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Liste_employer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,35 +74,10 @@ public class Reservations extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nom = request.getParameter("nom");
-        String voyage = request.getParameter("voyage");
-        int nbr=Integer.parseInt(request.getParameter("nbr"));
-        VoyageActivite h = new VoyageActivite();
-        Reservation r = new Reservation(nom,voyage,nbr);
-        out.println(nom);
         try {
-            List<VoyageActivite> liste = h.listeVoyageActiviteById(c.connectToPostgres(), voyage);
-            Billet billet = new Billet();
-            
-            for(VoyageActivite l : liste){
-                out.println(l.getNombre());
-                Billet somme = billet.totalbillet(c.connectToPostgres(), l.getActivte());
-                if(somme.getQuantite()<l.getNombre()){
-                    IllegalArgumentException e = new IllegalArgumentException("Quantite insuffusante pour l'activite "+l.getActivte());
-                    response.sendRedirect("Reservations?Error="+e.getMessage());
-                }else{
-                    r.insert_reservation(c.connectToPostgres());
-                    int nouveau = somme.getQuantite() - l.getNombre();
-                    Historique hist = new Historique(l.getActivte(),somme.getQuantite());
-                    hist.insert_Historique(c.connectToPostgres());
-                    billet.updateWhere(c.connectToPostgres(), l.getActivte(), nouveau);
-                    response.sendRedirect("Reservations?success=true");
-                }
-                
-            }
-            
+            processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(Reservations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Liste_employer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

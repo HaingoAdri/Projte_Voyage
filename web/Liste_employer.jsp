@@ -4,10 +4,16 @@
     Author     : razafinjatovo
 --%>
 
+<%@page import="java.time.temporal.ChronoUnit"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Vues_Employer"%>
 <%@page import="model.Vues_Activite"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Vector<Vues_Activite> listevues = (Vector<Vues_Activite>) request.getAttribute("liste"); %>
+<% 
+    List<Vues_Employer> listevues = (List<Vues_Employer>) request.getAttribute("liste");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,44 +61,7 @@
         <hr>
         <div class="card">
             <div class="card_header">
-                <h1>Liste activite du voyage (lieu):</h1>
-                <div class="row marketing">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Destination</th>
-                                    <th>Bouquet</th>
-                                    <th>Min prix</th>
-                                    <th>Max prix</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <form action="" method="POST">
-                                    <tr>
-                                        <td>
-                                            <input type="text" name="destination" class="form-control"
-                                                placeholder="Destination">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="bouquet" class="form-control"
-                                                placeholder="Bouquet">
-                                        </td>
-                                        <td>
-                                            <input type="number" name="minPrix" class="form-control"
-                                                placeholder="Min Prix">
-                                        </td>
-                                        <td>
-                                            <input type="number" name="maxPrix" class="form-control"
-                                                placeholder="Max Prix">
-                                        </td>
-                                    </tr>
-                                    
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <h1><a href="Liste_employer"> Liste employer </a> /  Insertion d'employer :</h1>
             </div>
             <p></p>
             <div class="card_body">
@@ -101,35 +70,45 @@
                         <table class="table table-striped" id="activiteTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Dates debut</th>
-                                    <th>Dates fin</th>
-                                    <th>Destination</th>
-                                    <th>Bouquet</th>
-                                    <th>Lieu</th>
-                                    <th>Date activite</th>
-                                    <th>Lieu activite</th>
-                                    <th>Nom activite</th>
-                                    <th>Nombre de fois</th>
-                                    <th>Prix unitaire</th>
-                                    <th>Total montant activite</th>
+                                    <th>Date embauche</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Salaire Depart</th>
+                                    <th>Poste</th>
+                                    <th>Anciennete</th>
+                                    <th>Salaire actuelle</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for(Vues_Activite t : listevues) { %>
+                                <% for(Vues_Employer t : listevues) {
+                                    LocalDate aujourdHui = LocalDate.now();
+                                    LocalDate sp = t.getEmbauche().toLocalDate();
+                                    long differenceAnnees = ChronoUnit.YEARS.between(sp, aujourdHui);
+                                    long differenceJour = ChronoUnit.DAYS.between(sp, aujourdHui);
+                                    long differenceMois = ChronoUnit.MONTHS.between(sp, aujourdHui);
+                                    double salaireactuelle = t.getSalaire();
+                                    String status = "ouvrier";
+                                    
+                                    if(differenceAnnees >= 2){
+                                        salaireactuelle = t.getSalaire() * 2;
+                                        status = "senior";
+                                    }
+                                    
+
+                                    if(differenceAnnees >= 5){
+                                        salaireactuelle = t.getSalaire() * 3;
+                                        status = "expert";
+                                    }
+                                  
+                                %>
                                 <tr>
-                                    <td><%= t.getId() %></td>
-                                    <td><%= t.getDateDebut() %></td>
-                                    <td><%= t.getDateFin() %></td>
-                                    <td><%= t.getNomDestination() %></td>
-                                    <td><%= t.getNomBouquet() %></td>
-                                    <td><%= t.getNomLieu() %>.</td>
-                                    <td><%= t.getDateActivite() %></td>
-                                    <td><%= t.getLieu() %></td>
-                                    <td><%= t.getNomActivite() %></td>
-                                    <td><%= t.getNombre() %></td>
-                                    <td><%= t.getPrix() %></td>
-                                    <td><%= t.getTotal() %></td>
+                                    <td><%= t.getEmbauche() %></td>
+                                    <td><%= t.getNom() %></td>
+                                    <td><%= t.getPrenom ()%></td>
+                                    <td><%= t.getSalaire() %> ar</td>
+                                    <td><%= t.getPoste() %> -> <%=status%></td>
+                                    <td><%= differenceAnnees %> ans, <%= differenceMois %> mois, <%= differenceJour %> jour</td>
+                                    <td><%= salaireactuelle %> ar</td>
                                 </tr>
                                 <% } %>
                             </tbody>

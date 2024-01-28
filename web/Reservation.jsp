@@ -50,6 +50,8 @@
             <li role="presentation"><a href="Billets">Billet</a></li>
             <li role="presentation"><a href="Reservations">Reservation</a></li>
             <li role="presentation"><a href="Vues">Liste stock</a></li>
+            <li role="presentation"><a href="Employer">Employer</a></li>
+             <li role="presentation"><a href="VenteServlet">Vente</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">Project Voyage</h3>
@@ -76,6 +78,11 @@
                             <option value="<%=act.getId()%>"><%=act.getId()%></option>
                             <%}%>
                         </select>
+                    </div>
+                    <p></p>
+                     <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon2">nombre de personne :</span>
+                        <input type="number" class="form-control" placeholder="nombre de personne" aria-describedby="sizing-addon2" name="nbr">
                     </div>
                     <p></p>
                     <input type="submit" class="btn btn-success" value="Inserer">

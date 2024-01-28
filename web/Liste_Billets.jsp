@@ -39,7 +39,7 @@
             <p></p>
             <p></p>
             <nav>
-                <ul class="nav nav-pills pull-right">
+          <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="VoyageServlet">Home</a></li>
             <li role="presentation"><a href="VoyageServlet">Formulaire d'insertion Voyage</a></li>
             <li role="presentation"><a href="ListeActivite">Liste</a></li>
@@ -47,8 +47,10 @@
             <li role="presentation"><a href="Billets">Billet</a></li>
             <li role="presentation"><a href="Reservations">Reservation</a></li>
             <li role="presentation"><a href="Vues">Liste stock</a></li>
+            <li role="presentation"><a href="Employer">Employer</a></li>
+             <li role="presentation"><a href="VenteServlet">Vente</a></li>
           </ul>
-            </nav>
+        </nav>
             <h3 class="text-muted">Project Voyage</h3>
         </div>
         <hr>
@@ -122,7 +124,7 @@
                 const enteredMaxPrix = parseFloat(maxPrixInput.value);
 
                 // Réinitialisez la liste des activités
-                activiteTable.innerHTML = '<thead><tr><th>Dates debut</th><th>Dates fin</th><th>Destination</th><th>Bouquet</th><th>Lieu</th><th>Date activite</th><th>Lieu activite</th><th>Nom activite</th><th>Nombre de fois</th><th>Prix</th><th>Total montant activite</th></tr></thead><tbody></tbody>';
+                activiteTable.innerHTML = '<thead><tr><th>#</th><th>Dates debut</th><th>Dates fin</th><th>Destination</th><th>Bouquet</th><th>Lieu</th><th>Date activite</th><th>Lieu activite</th><th>Nom activite</th><th>Nombre de fois</th><th>Prix</th><th>Total montant activite</th></tr></thead><tbody></tbody>';
 
                 // Parcourez toutes les activités et ajoutez celles qui correspondent aux entrées
                 allActivities.forEach(function (activity) {

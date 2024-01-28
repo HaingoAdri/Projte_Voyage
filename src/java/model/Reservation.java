@@ -20,6 +20,21 @@ public class Reservation {
     int id;
     String nom;
     String idvoyage;
+    int nbr;
+
+    public Reservation(String nom, String idvoyage, int nbr) {
+        this.nom = nom;
+        this.idvoyage = idvoyage;
+        this.nbr = nbr;
+    }
+
+    public int getNbr() {
+        return nbr;
+    }
+
+    public void setNbr(int nbr) {
+        this.nbr = nbr;
+    }
 
     public int getId() {
         return id;
@@ -68,6 +83,7 @@ public class Reservation {
             int i = rs.getInt("id");
             String d = rs.getString("nomclient");
             String prix=rs.getString("idvoyage");
+            
              Reservation reservation = new Reservation(i,d,prix);
             allreservation.add(reservation);
         }
@@ -76,10 +92,11 @@ public class Reservation {
     }
     
     public void insert_reservation(Connection c) throws SQLException{
-     String sql = "insert into reservation (nomclient,idvoyage) values (?,?)";
+     String sql = "insert into reservation (nomclient,idvoyage,nbr) values (?,?,?)";
         PreparedStatement st = c.prepareStatement(sql);
         st.setString(1, this.getNom());
         st.setString(2, this.getIdvoyage()); 
+        st.setInt(3, this.getNbr()); 
         System.out.println(sql);
         st.executeUpdate();
     }

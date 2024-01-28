@@ -42,7 +42,7 @@ Vector<TrancheAge> allage = (Vector<TrancheAge>) request.getAttribute("allage");
         <p></p>
         <p></p>
         <nav>
-              <ul class="nav nav-pills pull-right">
+             <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="VoyageServlet">Home</a></li>
             <li role="presentation"><a href="VoyageServlet">Formulaire d'insertion Voyage</a></li>
             <li role="presentation"><a href="ListeActivite">Liste</a></li>
@@ -50,8 +50,9 @@ Vector<TrancheAge> allage = (Vector<TrancheAge>) request.getAttribute("allage");
             <li role="presentation"><a href="Billets">Billet</a></li>
             <li role="presentation"><a href="Reservations">Reservation</a></li>
             <li role="presentation"><a href="Vues">Liste stock</a></li>
+            <li role="presentation"><a href="Employer">Employer</a></li>
+             <li role="presentation"><a href="VenteServlet">Vente</a></li>
           </ul>
-
         </nav>
         <h3 class="text-muted">Project Voyage</h3>
       </div>

@@ -4,13 +4,11 @@
     Author     : razafinjatovo
 --%>
 
-<%@page import="model.Activite"%>
-<%@page import="model.TrancheAge"%>
-<%@page import="model.Destination"%>
+<%@page import="model.Poste"%>
 <%@page import="model.Bouquet"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%Vector<Activite> allActivite = (Vector<Activite>) request.getAttribute("allactivity");%>
+<%Vector<Poste> allBouquet = (Vector<Poste>) request.getAttribute("poste");%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,6 +48,7 @@
             <li role="presentation"><a href="Reservations">Reservation</a></li>
             <li role="presentation"><a href="Vues">Liste stock</a></li>
             <li role="presentation"><a href="Employer">Employer</a></li>
+             <li role="presentation"><a href="VenteServlet">Vente</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">Project Voyage</h3>
@@ -57,27 +56,47 @@
       <hr>
       <div class="card">
         <div class="card_header">
-            <h1>Insertion de stock billets :</h1>
+            <h1><a href="Liste_employer"> Liste employer </a> /  Insertion d'employer :</h1>
         </div>
         <p></p>
         <div class="card_body">
             <div class="row marketing">
-                <form action="Billets" method="post">
+                <form action="Employer" method="post">
                     <div class="row">
                     <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon2">Nom activite:</span>
-                        <select class="form-control" name="act">
-                            <%for(Activite act : allActivite){%>
-                            <option value="<%=act.getId()%>"><%=act.getNom()%></option>
-                            <%}%>
+                        <span class="input-group-addon" id="sizing-addon2">Date embauche :</span>
+                        <input type="date" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" name="date">
+                    </div>
+                    <p></p>
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon2">Nom :</span>
+                        <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" name="nom">
+                    </div>
+                    <p></p>
+                    
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon2">Prenom :</span>
+                        <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" name="prenom">
+                    </div>
+                    <p></p>
+                    
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon2">Salaire :</span>
+                        <input type="number" class="form-control" placeholder="Salaire" aria-describedby="sizing-addon2" name="salaire">
+                    </div>
+                    <p></p>
+                    
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon2">Poste :</span>
+                        <select name="poste" aria-describedby="sizing-addon2" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" name="datefin">
+                            
+                                <option value="1">Ouvrier</option>
+                            
                         </select>
                     </div>
                     <p></p>
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon2">Quantite :</span>
-                        <input type="number" class="form-control" placeholder="quantite" aria-describedby="sizing-addon2" name="nbr">
-                    </div>
-                    <p></p>
+
+                    
                     <input type="submit" class="btn btn-success" value="Suivant">
                   </div><!-- /.row -->
                 </form>

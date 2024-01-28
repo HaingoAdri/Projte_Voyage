@@ -116,7 +116,7 @@ public class Voyage {
     public Voyage(){
     }
     
-    public Vector<Voyage> listeVoyage(Connection c) throws SQLException{
+    public  Vector<Voyage> listeVoyage(Connection c) throws SQLException{
         Vector<Voyage> allVoyage = new Vector<Voyage>();
         String sql ="Select * from voyage";
         Statement st  = c.createStatement();

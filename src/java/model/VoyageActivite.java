@@ -122,8 +122,7 @@ public class VoyageActivite {
         this.setTimefin(timefin);
         this.setLieu(lieu);
         this.setNombre(nombre);
-    }
-    
+    } 
 
     public VoyageActivite() {
     }
@@ -180,4 +179,5 @@ public class VoyageActivite {
         st.setInt(7, this.nombre);
         st.executeUpdate();
     }
+    
 }

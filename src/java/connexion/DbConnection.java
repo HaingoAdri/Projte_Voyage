@@ -21,7 +21,7 @@ public class DbConnection{
     public DbConnection(){
         this.setUsername("postgres");
         this.setPassword("haingo");
-        this.setDatabase("voyage_s3");
+        this.setDatabase("voyages");
     }
     //METHODS
 
